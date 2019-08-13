@@ -1,0 +1,124 @@
+
+
+<head>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/css?family=Red+Hat+Display:400,700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/styles.css">
+
+<link rel="icon" href="https://www.erikv.fi/wp-content/uploads/2019/05/favicon-150x150.png" sizes="32x32" />
+<link rel="icon" href="https://www.erikv.fi/wp-content/uploads/2019/05/favicon.png" sizes="192x192" />
+<link rel="apple-touch-icon-precomposed" href="https://www.erikv.fi/wp-content/uploads/2019/05/favicon.png" />
+<meta name="msapplication-TileImage" content="https://www.erikv.fi/wp-content/uploads/2019/05/favicon.png" />
+
+<title>Cursor</title>
+
+</head>
+
+<body>
+
+    <div class="box">
+        <div class="content">
+            <div>
+                <p>Kisaajien määrä: </p>
+                <input id="amount" type="number" min="2" max="8" value="2">
+            </div>
+            <div>
+                <button id="start">Aloita</button>
+            </div>
+        </div>
+        <div id="race">
+            <div class="bottom">
+                <button id="return">Takaisin</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+
+<script>
+
+$( document ).ready(function() {
+
+
+    $('#start').click(function() {
+        var racers = $('#amount').val();
+        $('.content').hide();
+        $('#race').css('display', 'flex');
+        for (var i = 0; i < racers; i++) {
+            $('#race').append('<div class="r"></div>');
+            $('.r').each(function() {
+                $(this).css('border-bottom-color', getRandomColor());
+            });
+        }
+        $("#race .r").each(function(n) {
+            $(this).attr("id", "item-" + n);
+        });
+        startRaceAndGetWinner();
+
+        window.setTimeout(function(){
+            $('#return').css('display', 'block');
+        }, 6100);
+    });
+
+    $('#return').click(function() {
+        $('.content').show();
+        $('#race').hide();
+        $('.r').remove();
+        $('.r').removeClass('padd');
+    });
+
+
+    function createRandom() {
+        var speed = Math.floor(Math.random() * 2900) + 3200;
+        return speed;
+    } 
+
+    function startRaceAndGetWinner() {
+        $('.r').each(function() {
+            var speed = createRandom();
+            $(this).css({
+                'transition' : 'ease-in ' + speed + 'ms',
+                'height' : '0.' + speed + 'px',
+            });
+        });
+
+        window.setTimeout(function(){
+            $(".r").addClass("padd");
+        }, 600);
+
+        getWinner();
+    }
+
+    function getWinner() {
+        var smallest;
+        var smallestarea = null;
+        $('.r').each(function () {
+          var thisarea = $(this).height();
+          if (smallestarea === null || thisarea < smallestarea) {
+            smallest = $(this);
+            smallestarea = thisarea;
+          }
+        });
+        var speed;
+        var winner = smallest.attr('id');
+        window.setTimeout(function(){
+            $('#' + winner).addClass('win');
+        }, 6100);
+    }
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
+});
+
+</script>
+
