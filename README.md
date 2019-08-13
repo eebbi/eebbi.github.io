@@ -6,4 +6,4 @@ Kolmiot kisaavat laatikon alareunasta yläreunaan, jonka jälkeen voittajan kohd
 
 Toteutettu käyttämällä HTML, CSS ja JQuery -ohjelmointikieliä.
 
-<a href="eebbi.github.io">eebbi.github.io</a>
+Linkki kisaan: <a href="eebbi.github.io">eebbi.github.io</a>
