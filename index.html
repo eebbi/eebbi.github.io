@@ -73,7 +73,7 @@ $( document ).ready(function() {
 
 
     function createRandom() {
-        var speed = Math.floor(Math.random() * 2900) + 3200;
+        var speed = Math.floor(Math.random() * 2.9) + 3.2;
         return speed;
     } 
 
@@ -81,8 +81,8 @@ $( document ).ready(function() {
         $('.r').each(function() {
             var speed = createRandom();
             $(this).css({
-                'transition' : 'ease-in ' + speed + 'ms',
-                'height' : '0.' + speed + 'px',
+                'transition' : 'ease-in ' + speed + 's',
+                'height' : speed + 'px',
             });
         });
 
